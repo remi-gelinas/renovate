@@ -24,6 +24,10 @@ on:
           - debug
           - info
 
+concurrency:
+  group: "${{ github.ref }}"
+  cancel-in-progress: true
+
 jobs:
   renovate:
     name: Renovate
@@ -41,7 +45,7 @@ jobs:
           owner: ${{ github.repository_owner }}
 
       - name: Renovate
-        uses: renovatebot/github-action@c21017a4a2fc9f42953bcc907e375a5a544557ec # v41.0.18
+        uses: renovatebot/github-action@v42.0.3
         env:
           LOG_LEVEL: ${{ inputs.log-level || 'debug' }}
           RENOVATE_DRY_RUN: ${{ inputs.dry-run == true }}
